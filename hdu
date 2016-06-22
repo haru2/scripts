@@ -1,22 +1,28 @@
+
 #! python
 import os
 import sys
 
 #### Read the file size
-def fileSize ( file ,total_size):
-        if (os.path.exists(os.path.abspath(file))):
-                print str(os.path.abspath(file)) + "  " + str(os.path.getsize(file)) + " bytes"
-                total_size = total_size + int(os.path.getsize(file))
-                return total_size
-
+def fileSize (file_name ):
+        if (os.path.exists(os.path.abspath(file_name)) and os.path.getsize(file_name)>0):
+                print "{} {} bytes".format(os.path.abspath(file_name),os.path.getsize(file_name))
+                return os.path.getsize(file_name)
+        else:
+                return 0
 ############# Main script
 def main(dir_name):
-        total_size = 0 
-        for root,dir,fileNames in os.walk(os.path.abspath(dir_name)):
-                for fileName in fileNames:
-                        file_wanted=os.path.join(root,fileName)
-                        total_size = fileSize(file_wanted,total_size)
-        print "Total " + str(total_size) + " bytes"
+        total_size = 0
+        for root,dir,file_names in os.walk(dir_name):
+                for file_name in file_names:
+                        file_wanted=os.path.join(root,file_name)
+                        try:
+                                total_size += fileSize(file_wanted)
+                        except Exception,e:
+                                print str(e)
+        #print "Total " + str(total_size) + " bytes"
+        return (str(total_size))
 
-########## Main Starts here ... 
-main(sys.argv[1])
+########## Main Starts here ...
+print "Total " + main(sys.argv[1]) + " bytes "
+
