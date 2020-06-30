@@ -12,8 +12,7 @@ Note that an empty string is also considered valid.'''
 
 
 
-def validparenth():
-    input = '()[]{}'
+def validparenth(input):
     result = []
     chars = {}
     chars['('] = ')'
@@ -33,9 +32,9 @@ def validparenth():
 
     if len(result) > 0:
         print(result)
-        print("False")
+        return("False")
     else:
         print(result)
-        print("True")
+        return("True")
 
-validparenth()
+print(validparenth('({})[]'))
